@@ -30,9 +30,7 @@ public class Register extends CustomActivity
 	// lưu số điện thoại
 	private EditText phonenumber;
 
-	/* (non-Javadoc)
-	 * @see com.chatt.custom.CustomActivity#onCreate(android.os.Bundle)
-	 */
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -48,9 +46,7 @@ public class Register extends CustomActivity
 		phonenumber = (EditText) findViewById(R.id.phone_number);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.chatt.custom.CustomActivity#onClick(android.view.View)
-	 */
+
 	@Override
 	public void onClick(View v)
 	{
