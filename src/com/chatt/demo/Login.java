@@ -31,9 +31,7 @@ public class Login extends CustomActivity
 	String name ="my_data";
 	private CheckBox ck;
 	SQLiteDatabase data;
-	/* (non-Javadoc)
-	 * @see com.chatt.custom.CustomActivity#onCreate(android.os.Bundle)
-	 */
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -41,7 +39,7 @@ public class Login extends CustomActivity
 		setContentView(R.layout.login);
 		createData();
 		createTable();
-//		checkData();
+
 		setTouchNClick(R.id.btnLogin);
 		setTouchNClick(R.id.btnReg);
 
@@ -94,10 +92,10 @@ public class Login extends CustomActivity
 		}
 		ck.setChecked(c);
 	}
-	//Data check
+	
 
 	
-	//Database
+
 
 	public void createData(){
 		data = openOrCreateDatabase("database", MODE_PRIVATE, null);
@@ -109,9 +107,7 @@ public class Login extends CustomActivity
 			data.execSQL(sql);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.chatt.custom.CustomActivity#onClick(android.view.View)
-	 */
+	
 	@Override
 	public void onClick(View v)
 	{
@@ -159,9 +155,7 @@ public class Login extends CustomActivity
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see android.support.v4.app.FragmentActivity#onActivityResult(int, int, android.content.Intent)
-	 */
+	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
