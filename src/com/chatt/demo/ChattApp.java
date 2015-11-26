@@ -8,9 +8,7 @@ import com.parse.Parse;
 public class ChattApp extends Application
 {
 
-	/* (non-Javadoc)
-	 * @see android.app.Application#onCreate()
-	 */
+	
 	@Override
 	public void onCreate()
 	{
