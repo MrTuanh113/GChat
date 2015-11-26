@@ -8,18 +8,11 @@ import android.view.View.OnClickListener;
 import com.chatt.demo.R;
 import com.chatt.demo.utils.TouchEffect;
 
-/**
- * This is a common activity that all other activities of the app can extend to
- * inherit the common behaviors like implementing a common interface that can be
- * used in all child activities.
- */
+
 public class CustomActivity extends FragmentActivity implements OnClickListener
 {
 
-	/**
-	 * Apply this Constant as touch listener for views to provide alpha touch
-	 * effect. The view must have a Non-Transparent background.
-	 */
+	
 	public static final TouchEffect TOUCH = new TouchEffect();
 
 	/* (non-Javadoc)
@@ -32,12 +25,7 @@ public class CustomActivity extends FragmentActivity implements OnClickListener
 		setupActionBar();
 	}
 
-	/**
-	 * This method will setup the top title bar (Action bar) content and display
-	 * values. It will also setup the custom background theme for ActionBar. You
-	 * can override this method to change the behavior of ActionBar for
-	 * particular Activity
-	 */
+	
 	protected void setupActionBar()
 	{
 		final ActionBar actionBar = getActionBar();
@@ -53,13 +41,7 @@ public class CustomActivity extends FragmentActivity implements OnClickListener
 		actionBar.setHomeButtonEnabled(true);
 	}
 
-	/**
-	 * Sets the touch and click listener for a view with given id.
-	 * 
-	 * @param id
-	 *            the id
-	 * @return the view on which listeners applied
-	 */
+	
 	public View setTouchNClick(int id)
 	{
 
@@ -69,13 +51,7 @@ public class CustomActivity extends FragmentActivity implements OnClickListener
 		return v;
 	}
 
-	/**
-	 * Sets the click listener for a view with given id.
-	 * 
-	 * @param id
-	 *            the id
-	 * @return the view on which listener is applied
-	 */
+	
 	public View setClick(int id)
 	{
 
