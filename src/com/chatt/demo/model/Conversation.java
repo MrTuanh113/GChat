@@ -5,31 +5,28 @@ import java.util.Date;
 import com.chatt.demo.TabFriend;
 
 
-/**
- * The Class Conversation is a Java Bean class that represents a single chat
- * conversation message.
- */
+
 public class Conversation
 {
 
-	/** The Constant STATUS_SENDING. */
+	// Hằng này thể hiện tin nhắn đang gửi
 	public static final int STATUS_SENDING = 0;
 
-	/** The Constant STATUS_SENT. */
+	// Hằng này thể hiện tin nhắn đã gửi
 	public static final int STATUS_SENT = 1;
 
-	/** The Constant STATUS_FAILED. */
+	// Hằng này thể hiện tin nhắn gửi thất bại
 	public static final int STATUS_FAILED = 2;
-	/** The msg. */
+	// Biến này chứa tin nhắn
 	private String msg;
 
-	/** The status. */
+	// biến lưu trạng thái gửi
 	private int status = STATUS_SENT;
 
-	/** The date. */
+	// ngày tháng gửi
 	private Date date;
 
-	/** The sender. */
+	// người gửi
 	private String sender;
 
 	/**
