@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_horizontal"
+        
         android:orientation="vertical"
         android:paddingBottom="@dimen/pad_20dp"
         android:paddingLeft="@dimen/pad_15dp"
@@ -20,7 +20,8 @@
             android:id="@+id/imageView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/logo"/>
+            android:layout_weight="0.17"
+            android:src="@drawable/logo" />
 
         <EditText
             android:id="@+id/user"
@@ -28,7 +29,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_username"
-            android:hint="@string/username" >
+            android:hint="@string/username"
+            android:layout_marginTop="30dp" >
 
             <requestFocus />
         </EditText>
@@ -44,6 +46,12 @@
             android:hint="@string/password"
             android:inputType="textPassword" >
         </EditText>
+        <CheckBox 
+            android:id="@+id/ck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lưu tài khoản"
+            />
 
         <LinearLayout
             android:id="@+id/main"
@@ -64,9 +72,9 @@
                 style="@style/btn_white_small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/pad_10dp"
                 android:layout_weight="1"
-                android:text="@string/register" 
-                android:layout_marginLeft="@dimen/pad_10dp"/>
+                android:text="@string/register" />
         </LinearLayout>
     </LinearLayout>
 

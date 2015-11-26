@@ -2,11 +2,9 @@
 <resources>
 
     <string name="app_name">Gchat</string>
-    <string name="type_msg">Type message</string>    
-    
-<string name="drawer_open">Open</string>
-<string name="drawer_close">Close</string>
-    
+    <string name="type_msg">Type message</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
     <string name="or">or</string>
     <string name="email">Email</string>
     <string name="username">Username</string>
@@ -25,7 +23,14 @@
     <string name="err_singup">Error occurred while signup:</string>
     <string name="err_login">Error occurred while login:</string>
     <string name="err_users">Error occurred while finding users:</string>
-<string name="alert_loading">Loading...</string>
-<string name="msg_no_user_found">No users found for chat!</string>
-<string name="logout">Logout</string>
+    <string name="alert_loading">Loading...</string>
+    <string name="msg_no_user_found">No users found for chat!</string>
+    <string name="logout">Logout</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_activity_private">ActivityPrivate</string>
+    <string name="title_activity_activity_required">ActivityRequired</string>
+    <string name="title_activity_activity__private">Activity_Private</string>
+
 </resources>

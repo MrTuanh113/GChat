@@ -1,10 +1,17 @@
 package com.chatt.demo;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ShareActionProvider;
 
 import com.chatt.demo.custom.CustomActivity;
 import com.chatt.demo.utils.Utils;
@@ -12,21 +19,18 @@ import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 
-/**
- * The Class Login is an Activity class that shows the login screen to users.
- * The current implementation simply includes the options for Login and button
- * for Register. On login button click, it sends the Login details to Parse
- * server to verify user.
- */
+
 public class Login extends CustomActivity
 {
 
-	/** The username edittext. */
+	
 	private EditText user;
 
-	/** The password edittext. */
+	
 	private EditText pwd;
-
+	String name ="my_data";
+	private CheckBox ck;
+	SQLiteDatabase data;
 	/* (non-Javadoc)
 	 * @see com.chatt.custom.CustomActivity#onCreate(android.os.Bundle)
 	 */
@@ -35,12 +39,74 @@ public class Login extends CustomActivity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
-
+		createData();
+		createTable();
+//		checkData();
 		setTouchNClick(R.id.btnLogin);
 		setTouchNClick(R.id.btnReg);
 
 		user = (EditText) findViewById(R.id.user);
 		pwd = (EditText) findViewById(R.id.pwd);
+		ck = (CheckBox) findViewById(R.id.ck);
+		
+		
+
+	}
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		savingPreferenes();
+	}
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		restoringPreferences();
+	}
+	private void savingPreferenes(){
+		SharedPreferences share = getSharedPreferences(name, MODE_PRIVATE);
+		SharedPreferences.Editor editor = share.edit();
+		String u= user.getText().toString();
+		String p = pwd.getText().toString();
+		boolean c = ck.isChecked();
+		if(!c){
+			editor.clear();
+		}else{
+			editor.putString("username", u);
+			editor.putString("password", p);
+			editor.putBoolean("saveStatus", c);
+			
+			
+		}
+		editor.commit();
+	}
+	private void restoringPreferences(){
+		SharedPreferences pref = getSharedPreferences(name, MODE_PRIVATE);
+		boolean c = pref.getBoolean("saveStatus", false);
+		if(c){
+			String u = pref.getString("username", "");
+			String p = pref.getString("password", "");
+			user.setText(u);
+			pwd.setText(p);
+			
+			
+		}
+		ck.setChecked(c);
+	}
+	//Data check
+
+	
+	//Database
+
+	public void createData(){
+		data = openOrCreateDatabase("database", MODE_PRIVATE, null);
+	}
+	public void createTable(){
+		String sql = "CREATE TABLE IF NOT EXISTS PASSWORD (";
+			
+			sql+="PASS TEXT)";
+			data.execSQL(sql);
 	}
 
 	/* (non-Javadoc)
@@ -75,8 +141,8 @@ public class Login extends CustomActivity
 					dia.dismiss();
 					if (pu != null)
 					{
-						UserList.user = pu;
-						startActivity(new Intent(Login.this, UserList.class));
+						TabFriend.user = pu;
+						startActivity(new Intent(Login.this, TabMain.class));
 						overridePendingTransition(R.anim.pull_in_left, 0);
 						finish();
 					}

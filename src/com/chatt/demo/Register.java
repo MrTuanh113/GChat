@@ -12,21 +12,23 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
-/**
- * The Class Register is the Activity class that shows user registration screen
- * that allows user to register itself on Parse server for this Chat app.
- */
+
 public class Register extends CustomActivity
 {
 
-	/** The username EditText. */
+	
 	private EditText user;
 
-	/** The password EditText. */
+	
 	private EditText pwd;
 
-	/** The email EditText. */
+
 	private EditText email;
+	
+	private EditText confirm_pass;
+	
+	// lưu số điện thoại
+	private EditText phonenumber;
 
 	/* (non-Javadoc)
 	 * @see com.chatt.custom.CustomActivity#onCreate(android.os.Bundle)
@@ -42,6 +44,8 @@ public class Register extends CustomActivity
 		user = (EditText) findViewById(R.id.user);
 		pwd = (EditText) findViewById(R.id.pwd);
 		email = (EditText) findViewById(R.id.email);
+		confirm_pass = (EditText) findViewById(R.id.confirm_password);
+		phonenumber = (EditText) findViewById(R.id.phone_number);
 	}
 
 	/* (non-Javadoc)
@@ -55,11 +59,20 @@ public class Register extends CustomActivity
 		String u = user.getText().toString();
 		String p = pwd.getText().toString();
 		String e = email.getText().toString();
-		if (u.length() == 0 || p.length() == 0 || e.length() == 0)
+		String c = confirm_pass.getText().toString();
+		String f = phonenumber.getText().toString();
+		if (u.length() == 0 || p.length() == 0 || e.length() == 0||f.length()==0)
 		{
 			Utils.showDialog(this, R.string.err_fields_empty);
 			return;
 		}
+		
+		if (!p.equals(c))
+		{
+			Utils.showDialog(this, "Mật khẩu không khớp");
+			return;
+		}
+		
 		final ProgressDialog dia = ProgressDialog.show(this, null,
 				getString(R.string.alert_wait));
 
@@ -67,6 +80,9 @@ public class Register extends CustomActivity
 		pu.setEmail(e);
 		pu.setPassword(p);
 		pu.setUsername(u);
+		pu.put("phonenumber", f);
+		
+		
 		pu.signUpInBackground(new SignUpCallback() {
 
 			@Override
@@ -75,8 +91,8 @@ public class Register extends CustomActivity
 				dia.dismiss();
 				if (e == null)
 				{
-					UserList.user = pu;
-					startActivity(new Intent(Register.this, UserList.class));
+					TabFriend.user = pu;
+					startActivity(new Intent(Register.this, TabFriend.class));
 					setResult(RESULT_OK);
 					finish();
 				}

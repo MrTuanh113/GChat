@@ -26,6 +26,14 @@ public final class R {
         public static final int white_smoke=0x7f050000;
     }
     public static final class dimen {
+        /** 
+         Example customization of dimensions originally defined in res/values/dimens.xml
+         (such as screen margins) for screens with more than 820dp of available width. This
+         would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
+    
+         */
+        public static final int activity_horizontal_margin=0x7f06000f;
+        public static final int activity_vertical_margin=0x7f060010;
         public static final int pad_10dp=0x7f060001;
         public static final int pad_15dp=0x7f060002;
         public static final int pad_20dp=0x7f060003;
@@ -69,34 +77,85 @@ public final class R {
         public static final int user_chat2=0x7f020017;
     }
     public static final class id {
-        public static final int btnLogin=0x7f09000c;
-        public static final int btnReg=0x7f09000d;
-        public static final int btnSend=0x7f090002;
-        public static final int email=0x7f09000e;
-        public static final int imageView1=0x7f090008;
-        public static final int lbl1=0x7f090005;
-        public static final int lbl2=0x7f090006;
-        public static final int lbl3=0x7f090007;
-        public static final int list=0x7f090000;
-        public static final int llaa=0x7f090003;
-        public static final int main=0x7f09000b;
-        public static final int pwd=0x7f09000a;
-        public static final int txt=0x7f090001;
-        public static final int user=0x7f090009;
-        public static final int v1=0x7f090004;
+        public static final int LinearLayout1=0x7f0a0026;
+        public static final int LinearLayout12=0x7f0a0000;
+        public static final int LinearLayout2=0x7f0a0028;
+        public static final int LinearLayout3=0x7f0a002a;
+        public static final int RelativeLayout1=0x7f0a0005;
+        public static final int action_settings=0x7f0a002c;
+        public static final int btAddFriend=0x7f0a000a;
+        public static final int btAgree=0x7f0a0024;
+        public static final int btCancel=0x7f0a0013;
+        public static final int btCancel3=0x7f0a0016;
+        public static final int btChat=0x7f0a000b;
+        public static final int btChatFriend=0x7f0a0008;
+        public static final int btOk=0x7f0a0014;
+        public static final int btOk3=0x7f0a0017;
+        public static final int btRefuse=0x7f0a0025;
+        public static final int btRemoveFriend=0x7f0a0007;
+        public static final int btnLogin=0x7f0a001d;
+        public static final int btnReg=0x7f0a001e;
+        public static final int btnSend=0x7f0a0004;
+        public static final int btprivate=0x7f0a002e;
+        public static final int btpublic=0x7f0a002d;
+        public static final int ck=0x7f0a001b;
+        public static final int confirm_password=0x7f0a0020;
+        public static final int edConf=0x7f0a0012;
+        public static final int edEnP=0x7f0a0011;
+        public static final int edEnterP=0x7f0a0015;
+        public static final int email=0x7f0a001f;
+        public static final int imageView1=0x7f0a0018;
+        public static final int lbl1=0x7f0a000e;
+        public static final int lbl2=0x7f0a000f;
+        public static final int lbl3=0x7f0a0010;
+        public static final int list=0x7f0a0002;
+        public static final int listView1=0x7f0a0027;
+        public static final int list_friend=0x7f0a0001;
+        public static final int list_friend1=0x7f0a0029;
+        public static final int llaa=0x7f0a000c;
+        public static final int lvRequired=0x7f0a0022;
+        public static final int lvRequired2=0x7f0a002b;
+        public static final int main=0x7f0a001c;
+        public static final int phone_number=0x7f0a0021;
+        public static final int pwd=0x7f0a001a;
+        public static final int required=0x7f0a002f;
+        public static final int tvName=0x7f0a0009;
+        public static final int tvNameFr=0x7f0a0006;
+        public static final int tvNamerq=0x7f0a0023;
+        public static final int txt=0x7f0a0003;
+        public static final int user=0x7f0a0019;
+        public static final int v1=0x7f0a000d;
     }
     public static final class layout {
-        public static final int alpha=0x7f030000;
-        public static final int chat=0x7f030001;
-        public static final int chat_item=0x7f030002;
-        public static final int chat_item_rcv=0x7f030003;
-        public static final int chat_item_sent=0x7f030004;
-        public static final int login=0x7f030005;
-        public static final int pull_in_left=0x7f030006;
-        public static final int register=0x7f030007;
-        public static final int user_list=0x7f030008;
+        public static final int activity_private=0x7f030000;
+        public static final int alpha=0x7f030001;
+        public static final int chat=0x7f030002;
+        public static final int chat_friend_item=0x7f030003;
+        public static final int chat_item=0x7f030004;
+        public static final int chat_item_rcv=0x7f030005;
+        public static final int chat_item_sent=0x7f030006;
+        public static final int layout_private=0x7f030007;
+        public static final int lockapp=0x7f030008;
+        public static final int lockscreen=0x7f030009;
+        public static final int login=0x7f03000a;
+        public static final int pull_in_left=0x7f03000b;
+        public static final int register=0x7f03000c;
+        public static final int required=0x7f03000d;
+        public static final int required_list_item=0x7f03000e;
+        public static final int tabfriend=0x7f03000f;
+        public static final int tabmain=0x7f030010;
+        public static final int tabprivate=0x7f030011;
+        public static final int tabrequired=0x7f030012;
+        public static final int user_list=0x7f030013;
+    }
+    public static final class menu {
+        public static final int activity__private=0x7f090000;
+        public static final int activity_private=0x7f090001;
+        public static final int activity_required=0x7f090002;
+        public static final int main=0x7f090003;
     }
     public static final class string {
+        public static final int action_settings=0x7f07001b;
         public static final int alert_loading=0x7f070016;
         public static final int alert_wait=0x7f070011;
         public static final int all_chats=0x7f07000c;
@@ -110,6 +169,7 @@ public final class R {
         public static final int err_singup=0x7f070013;
         public static final int err_users=0x7f070015;
         public static final int forgot_my_pwd=0x7f07000a;
+        public static final int hello_world=0x7f07001a;
         public static final int log_in=0x7f070009;
         public static final int logout=0x7f070018;
         public static final int msg_no_user_found=0x7f070017;
@@ -119,6 +179,10 @@ public final class R {
         public static final int password=0x7f070007;
         public static final int register=0x7f070008;
         public static final int search=0x7f07000d;
+        public static final int title_activity_activity__private=0x7f07001e;
+        public static final int title_activity_activity_private=0x7f07001c;
+        public static final int title_activity_activity_required=0x7f07001d;
+        public static final int title_activity_main=0x7f070019;
         public static final int to=0x7f07000e;
         public static final int type_msg=0x7f070001;
         public static final int username=0x7f070006;

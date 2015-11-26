@@ -21,7 +21,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/pad_20dp"
-            android:src="@drawable/logo" />
+            android:src="@drawable/logo" 
+            />
 
         <EditText
             android:id="@+id/email"
@@ -50,11 +51,36 @@
             style="@style/editext_graybg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/pad_20dp"
+           
             android:layout_marginTop="@dimen/pad_5dp"
             android:drawableLeft="@drawable/ic_pwd"
             android:hint="@string/password"
             android:inputType="textPassword" >
+        </EditText>
+        
+         <EditText
+            android:id="@+id/confirm_password"
+            style="@style/editext_graybg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+           
+            android:layout_marginTop="@dimen/pad_5dp"
+            android:drawableLeft="@drawable/ic_pwd"
+            android:hint="Confirm Password"
+            android:inputType="textPassword" >
+        </EditText>
+        
+        
+         <EditText
+            android:id="@+id/phone_number"
+            style="@style/editext_graybg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/pad_20dp"
+            android:layout_marginTop="@dimen/pad_5dp"
+            android:drawableLeft="@drawable/ic_pwd"
+            android:hint="Phone Number"
+            android:inputType="number" >
         </EditText>
 
         <LinearLayout
