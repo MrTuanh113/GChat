@@ -7,15 +7,21 @@ import java.util.List;
 import Database.DBHandler;
 import Database.User;
 import android.app.Activity;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.NotificationCompat;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TableRow;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
@@ -24,6 +30,10 @@ public class TabRequired extends Activity{
 	ArrayList<HashMap<String,String>> array;
 	SimpleAdapter adapter;
 	public final static String NAME ="name";
+	public static int index;
+	private NotificationManager mNoti;
+	private int notiID=100;
+	private int numMessages =0;
 	Handler hander;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,23 +44,47 @@ public class TabRequired extends Activity{
 		listview = (ListView) findViewById(R.id.lvRequired2);
 		array = new ArrayList<HashMap<String,String>>();
 		hander = new Handler();
+		
 		createList();
+		
 	}
+	
+//	public void noticle(){
+//		DBHandler db = new DBHandler(this);
+//		
+//		int count = db.getCount();
+//		
+//		if(TabRequired.index==count){
+//			if(TabRequired.index >= 10){
+//				array.removeAll(array);
+//				adapter.notifyDataSetChanged();
+//			}
+//		}else{
+//			
+//			notifitycation();
+//			
+//			TabRequired.index=count;
+//		}
+//		
+//		
+//	}
 	public void createList(){
 		//================================
-//				Toast.makeText(getApplicationContext(), "Load dữ liệu", Toast.LENGTH_SHORT).show();
+		DBHandler db = new DBHandler(this);
+				
 				array.removeAll(array);
 				// phần này là lấy dữ liệu từ cơ sở dữ liệu ra
-				DBHandler db = new DBHandler(this);
-				db.add(new User("tbm111","Tu Anh "));
-				db.add(new User("tbm112","Ngoc Son"));
-				db.add(new User("tbm113","Tuan Phuc"));
+				
+//				db.add(new User("tbm111","Tu Anh "));
+//				db.add(new User("tbm112","Ngoc Son"));
+//				db.add(new User("tbm113","Tuan Phuc"));
 				//=================================
 				List<User> user_list = db.getAllRequired();
 				for(User user : user_list){
 					String name= user.getUser_name();
 					// phần này là lấy dữ liệu từ mảng userlist cho vào biến HashMap
 					loadData(name);
+					
 					
 					
 				}
@@ -118,14 +152,15 @@ public class TabRequired extends Activity{
 						
 					}
 				});
-				
+				db.close();
 	
 				hander.postDelayed(new Runnable(){
 
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
-//						createList();
+						createList();
+//						noticle();
 					}
 					
 					
@@ -171,6 +206,24 @@ public class TabRequired extends Activity{
 		array.add(temp);
 		
 	}
+//	public void notifitycation(){
+//		NotificationCompat.Builder b = new NotificationCompat.Builder(this);
+//		b.setContentTitle("Tin nhắn mới");
+//		b.setContentText("Bạn có tin nhắn mới");
+//		b.setTicker("Tin nhắn mới tới");
+//		b.setSmallIcon(R.drawable.icon);
+//		b.setNumber(++numMessages);
+//		Intent resultIntent = new Intent(this,TabMain.class);
+//		TaskStackBuilder sb = TaskStackBuilder.create(this);
+//		sb.addParentStack(TabMain.class);
+//		sb.addNextIntent(resultIntent);
+//		PendingIntent rpi = sb.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+//		b.setContentIntent(rpi);
+//		mNoti = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+//		mNoti.notify(notiID,b.build());
+//		
+//		
+//	}
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub

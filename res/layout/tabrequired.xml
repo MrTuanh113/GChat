@@ -7,15 +7,19 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+   
     tools:context="com.chatt.demo.TabRequired" >
 
     <ListView
         android:id="@+id/lvRequired2"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" 
-         android:divider="@color/main_color_green"
-            android:dividerHeight="1dp"
-         tools:listitem="@layout/chat_item"/>
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:divider="@color/main_color_green"
+        android:dividerHeight="1dp"
+        android:text="@string/hello_world"
+        tools:listitem="@layout/required_list_item" >
+    </ListView>
 
 </RelativeLayout>

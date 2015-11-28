@@ -63,4 +63,18 @@
         <item name="android:textColor">@color/main_color_green</item>
         <item name="android:textSize">@dimen/txt_16sp</item>
     </style>
+    <style name="Button_Green">
+        <item name="android:background">#009900</item>
+      	<item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+     
+        
+    </style>
+     <style name="Button_Red">
+        <item name="android:background">#FF3300</item>
+      	<item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+      
+        
+    </style>
 </resources>

@@ -77,10 +77,12 @@ protected void onCreate(Bundle savedInstanceState) {
 	
 	getActionBar().setTitle(buddy);
 
-	handler = new Handler();
-	
-	
-}
+	handler = new Handler();}
+	@Override
+		protected void onStart() {
+			// TODO Auto-generated method stub
+			super.onStart();
+		}
 @Override
 protected void onResume()
 {
@@ -126,6 +128,7 @@ private void sendMessage()
 	po.put("receiver", buddy);
 	// po.put("createdAt", "");
 	po.put("message", s);
+	po.put("state", false);
 	po.saveEventually(new SaveCallback() {
 
 		@Override
@@ -179,7 +182,8 @@ private void loadConversationList()
 							|| lastMsgDate.before(c.getDate()))
 						lastMsgDate = c.getDate();
 					adp.notifyDataSetChanged();
-					
+					po.put("state", true);
+					po.saveInBackground();
 				}
 			}
 			handler.postDelayed(new Runnable() {

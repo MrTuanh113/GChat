@@ -137,6 +137,10 @@ public class Login extends CustomActivity
 					dia.dismiss();
 					if (pu != null)
 					{
+						Intent intent = new Intent(Login.this,Noti.class);
+						startService(intent);
+						Intent intent1 = new Intent(Login.this,ServiceNewMessage.class);
+						startService(intent1);
 						TabFriend.user = pu;
 						startActivity(new Intent(Login.this, TabMain.class));
 						overridePendingTransition(R.anim.pull_in_left, 0);
