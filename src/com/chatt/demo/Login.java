@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -15,8 +16,10 @@ import android.widget.ShareActionProvider;
 
 import com.chatt.demo.custom.CustomActivity;
 import com.chatt.demo.utils.Utils;
+import com.parse.FindCallback;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 
@@ -31,7 +34,7 @@ public class Login extends CustomActivity
 	String name ="my_data";
 	private CheckBox ck;
 	SQLiteDatabase data;
-	
+	String phonenumber="0000" ;
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -46,6 +49,11 @@ public class Login extends CustomActivity
 		user = (EditText) findViewById(R.id.user);
 		pwd = (EditText) findViewById(R.id.pwd);
 		ck = (CheckBox) findViewById(R.id.ck);
+		
+		TelephonyManager t= (TelephonyManager) this.getSystemService(this.TELEPHONY_SERVICE);
+		phonenumber= t.getLine1Number();
+		
+	
 		
 		
 
@@ -139,8 +147,17 @@ public class Login extends CustomActivity
 					{
 						Intent intent = new Intent(Login.this,Noti.class);
 						startService(intent);
-						Intent intent1 = new Intent(Login.this,ServiceNewMessage.class);
-						startService(intent1);
+						
+						
+						
+						pu.put("phonenumber", phonenumber);
+						
+						
+						
+						
+						
+//						Intent intent1 = new Intent(Login.this,ServiceNewMessage.class);
+//						startService(intent1);
 						TabFriend.user = pu;
 						startActivity(new Intent(Login.this, TabMain.class));
 						overridePendingTransition(R.anim.pull_in_left, 0);
