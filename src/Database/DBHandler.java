@@ -92,6 +92,7 @@ private static final String KEY_USER_NAME="user_name";
 			cursor.moveToFirst();
 		
 		User user = new User(Integer.parseInt(cursor.getString(0)),cursor.getString(1),cursor.getString(2));
+		cursor.close();
 	return user;
 	
 	
@@ -106,6 +107,7 @@ private static final String KEY_USER_NAME="user_name";
 		}
 		
 		User user = new User(Integer.parseInt(c.getString(0)),c.getString(1),c.getString(2));
+		c.close();
 		return user;
 	}
 	//Truy vấn 1 bạn bè
@@ -116,6 +118,7 @@ private static final String KEY_USER_NAME="user_name";
 			cursor.moveToFirst();
 		
 		User user = new User(Integer.parseInt(cursor.getString(0)),cursor.getString(1),cursor.getString(2));
+		cursor.close();
 	return user;
 	
 	
@@ -130,6 +133,7 @@ private static final String KEY_USER_NAME="user_name";
 		}
 		
 		User user = new User(Integer.parseInt(c.getString(0)),c.getString(1),c.getString(2));
+		c.close();
 		return user;
 	}
 	
@@ -156,6 +160,7 @@ private static final String KEY_USER_NAME="user_name";
 			
 				
 			}
+		cursor.close();
 		return user_list;
 		}
 	//Truy vấn tất cả bạn bè
@@ -176,6 +181,8 @@ private static final String KEY_USER_NAME="user_name";
 			
 				
 			}
+		cursor.close();
+		
 		return user_list;
 		}
 	//Đếm số lượng kết bạn 
@@ -184,8 +191,10 @@ private static final String KEY_USER_NAME="user_name";
 			String countQuery = "SELECT * FROM "+TABLE;
 			SQLiteDatabase db = this.getReadableDatabase();
 			Cursor cursor = db.rawQuery(countQuery, null);
+			
+			int a =cursor.getCount();
 			cursor.close();
-			return cursor.getCount();
+			return a;
 			
 		}
 		//Truy vấn tất cả bạn bè
@@ -193,8 +202,9 @@ private static final String KEY_USER_NAME="user_name";
 			String countQuery = "SELECT * FROM "+TABLE1;
 			SQLiteDatabase db = this.getReadableDatabase();
 			Cursor cursor = db.rawQuery(countQuery, null);
+			int a =cursor.getCount();
 			cursor.close();
-			return cursor.getCount();
+			return a;
 			
 		}
 		// Sửa thông tin kết bạn
