@@ -32,7 +32,7 @@ public class ServiceNewMessage extends Service {
 	private ArrayList<Conversation> convList;
 	public static ParseUser user;
 	ArrayList<ParseUser> listuser;
-	private int notiID=100;
+	private int notiID;
 	private int numMessages =0;
 	Handler handler;
 	
@@ -55,7 +55,12 @@ public class ServiceNewMessage extends Service {
 	public void onStart(Intent intent, int startId) {
 		// TODO Auto-generated method stub
 		super.onStart(intent, startId);
-		loadMessage();
+		try{
+		loadMessage();}
+		catch(Exception e){
+			Toast.makeText(getApplicationContext(), "Lỗi là "+e, Toast.LENGTH_LONG).show();
+			
+		}
 		
 	}
 //	public void noticle(){
@@ -85,70 +90,90 @@ public class ServiceNewMessage extends Service {
 //		});
 //	}
 	public void loadMessage(){
-		buddy = null;
-		ParseQuery<ParseObject> q = ParseQuery.getQuery("Chat");
-		if (convList.size() == 0)
-		{
-			// load all messages...
-			ArrayList<String> al = new ArrayList<String>();
-		
-			al.add(TabFriend.user.getUsername());
-			
-			q.whereContainedIn("receiver", al);
-		}
-		else
-		{
-			// load only newly received message..
-			if (lastMsgDate != null)
-				q.whereGreaterThan("createdAt", lastMsgDate);
-			
-			q.whereEqualTo("receiver", TabFriend.user.getUsername());
-		}
-		q.orderByDescending("createdAt");
-		q.setLimit(30);
-		q.findInBackground(new FindCallback<ParseObject>() {
+		notiID =100;
+		ParseUser.getQuery().whereNotEqualTo("username", TabFriend.user.getUsername()).findInBackground(new FindCallback<ParseUser>() {
 
 			@Override
-			public void done(List<ParseObject> li, ParseException e)
-			{
-				if (li != null && li.size() > 0)
-				{
-					for (int i = li.size() - 1; i >= 0; i--)
-					{
-						ParseObject po = li.get(i);
-						Conversation c = new Conversation(po
-								.getString("message"), po.getCreatedAt(), po
-								.getString("sender"));
-						convList.add(c);
-						if (lastMsgDate == null
-								|| lastMsgDate.before(c.getDate()))
-							lastMsgDate = c.getDate();
-						
-						
-						
-						
-						 buddy = po.getString("sender");
-						
-						boolean t = po.getBoolean("state");
-						if(t==false){
-						notifitycation(buddy);}
-					}
-				}
+			public void done(List<ParseUser> arg0, ParseException arg1) {
+				// TODO Auto-generated method stub
+			
+			for(ParseUser pu: arg0){
+				String name = pu.getString("sender");
 				
-				handler.postDelayed(new Runnable() {
-
+				
+				ParseQuery<ParseObject> q = ParseQuery.getQuery("Chat");
+				if (convList.size() == 0)
+				{
+					// load all messages...
+					
+					q.whereEqualTo("sender", name);
+					q.whereEqualTo("receiver", TabFriend.user.getUsername());
+				}
+				else
+				{
+					// load only newly received message..
+					if (lastMsgDate != null)
+						q.whereGreaterThan("createdAt", lastMsgDate);
+					q.whereEqualTo("sender", name);
+					q.whereEqualTo("receiver", TabFriend.user.getUsername());
+				}
+				q.orderByDescending("createdAt");
+				q.setLimit(30);
+				
+				q.findInBackground(new FindCallback<ParseObject>() {
+						
 					@Override
-					public void run()
+					public void done(List<ParseObject> li, ParseException e)
 					{
-						loadMessage();
+						if (li != null && li.size() > 0)
+						{
+							
+							for (int i = li.size() - 1; i >= 0; i--)
+							{
+								
+								ParseObject po = li.get(i);
+								Conversation c = new Conversation(po
+										.getString("message"), po.getCreatedAt(), po
+										.getString("sender"));
+								convList.add(c);
+								if (lastMsgDate == null
+										|| lastMsgDate.before(c.getDate()))
+									lastMsgDate = c.getDate();
+								
+								
+								
+								
+								
+								boolean t = po.getBoolean("state");
+								if(t==false){
+									
+								notifitycation(buddy,notiID);}
+							}
+						}
+						
+						handler.postDelayed(new Runnable() {
+
+							@Override
+							public void run()
+							{
+								loadMessage();
+							}
+						}, 1000);
 					}
-				}, 1000);
+				});
+				Toast.makeText(getApplicationContext(), "id giờ là "+notiID, Toast.LENGTH_LONG).show();
+				notiID++;
+				
+				
+				
+				
+			}
 			}
 		});
 		
 		
 	}
-	public void notifitycation(String buddy){
+	public void notifitycation(String buddy, int id){
 		NotificationCompat.Builder b = new NotificationCompat.Builder(this);
 		b.setContentTitle("GChat - Bạn có tin nhắn mới");
 		b.setContentText("Bạn có tin nhắn mới từ "+buddy);
@@ -164,7 +189,7 @@ public class ServiceNewMessage extends Service {
 		b.setContentIntent(rpi);
 		b.setAutoCancel(true);
 		mNoti = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-		mNoti.notify(notiID,b.build());
+		mNoti.notify(id,b.build());
 		
 		
 	}
