@@ -16,8 +16,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:divider="@color/main_color_green"
-        android:dividerHeight="1dp"
+        android:divider="@color/gray_light"
+        android:dividerHeight="0.5dp"
         android:text="@string/hello_world"
         tools:listitem="@layout/required_list_item" >
     </ListView>

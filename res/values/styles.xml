@@ -1,38 +1,38 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="AppBaseTheme" parent="android:Theme.Holo.Light.DarkActionBar">
-    </style>
+    <style name="AppBaseTheme" parent="android:Theme.Holo.Light.DarkActionBar"></style>
 
     <style name="AppTheme" parent="AppBaseTheme">
         <item name="android:homeAsUpIndicator">@drawable/back_arrow</item>
     </style>
-    
-     
-     <style name="editext_graybg" parent="android:Widget.EditText">
-          <item name="android:background">@drawable/editext_bg_gray</item>
-          <item name="android:drawablePadding">@dimen/pad_10dp</item>
-          <item name="android:ems">10</item>
-          <item name="android:inputType">textEmailAddress</item>
-          <item name="android:paddingLeft">@dimen/pad_10dp</item>
-          <item name="android:paddingRight">@dimen/pad_10dp</item>
-          <item name="android:textSize">@dimen/txt_16sp</item>
-     </style>
-     <style name="btn_white_large" parent="@style/btn">
-          <item name="android:background">@drawable/red_btn</item>
-          <item name="android:textColor">@color/white</item>
-          <item name="android:textSize">@dimen/txt_18sp</item>
-     </style>
-     <style name="btn_white_small" parent="@style/btn">
-          <item name="android:background">@drawable/reg_bnt</item>
-          <item name="android:textColor">@color/white</item>
-          <item name="android:textSize">@dimen/txt_18sp</item>
-     </style>
-     
-      <style name="btn" parent="android:Widget.Holo.Light.Button">
+
+    <style name="editext_graybg" parent="android:Widget.EditText">
+        <item name="android:background">@drawable/editext_bg_gray</item>
+        <item name="android:drawablePadding">@dimen/pad_10dp</item>
+        <item name="android:ems">10</item>
+        <item name="android:inputType">textEmailAddress</item>
+        <item name="android:paddingLeft">@dimen/pad_10dp</item>
+        <item name="android:paddingRight">@dimen/pad_10dp</item>
+        <item name="android:textSize">@dimen/txt_16sp</item>
+    </style>
+
+    <style name="btn_white_large" parent="@style/btn">
+        <item name="android:background">@drawable/red_btn</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/txt_18sp</item>
+    </style>
+
+    <style name="btn_white_small" parent="@style/btn">
+        <item name="android:background">@drawable/reg_bnt</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/txt_18sp</item>
+    </style>
+
+    <style name="btn" parent="android:Widget.Holo.Light.Button">
         <item name="android:minHeight">1dp</item>
         <item name="android:minWidth">1dp</item>
     </style>
-   
+
     <style name="edittext_msg" parent="android:Widget.Holo.Light.EditText">
         <item name="android:background">@drawable/edittext_bg</item>
         <item name="android:ems">10</item>
@@ -46,7 +46,7 @@
         <item name="android:textColorHint">@color/main_color_gray</item>
         <item name="android:textSize">@dimen/txt_16sp</item>
     </style>
-    
+
     <style name="editext_white" parent="android:Widget.Holo.Light.EditText">
         <item name="android:background">@color/white</item>
         <item name="android:inputType">textEmailAddress</item>
@@ -55,6 +55,7 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/txt_14sp</item>
     </style>
+
     <style name="btn_green_white_bg" parent="@style/btn">
         <item name="android:background">@color/white</item>
         <item name="android:paddingBottom">@dimen/pad_10dp</item>
@@ -63,18 +64,17 @@
         <item name="android:textColor">@color/main_color_green</item>
         <item name="android:textSize">@dimen/txt_16sp</item>
     </style>
+
     <style name="Button_Green">
         <item name="android:background">#009900</item>
-      	<item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-     
-        
     </style>
-     <style name="Button_Red">
+
+    <style name="Button_Red">
         <item name="android:background">#FF3300</item>
-      	<item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-      
-        
     </style>
+
 </resources>
