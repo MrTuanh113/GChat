@@ -10,133 +10,156 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import com.chatt.demo.utils.Const;
 import com.parse.ParseUser;
 
 public class TabPrivate extends Activity {
-	 ListView list;
-	 ArrayList<ParseUser> listuser;
-		ArrayList<HashMap<String,String>> array;
-		SimpleAdapter adapter;
-		public static ParseUser user;
-		public final static String TEXT ="texview";
-		public final static String BUTTON ="button";
-		Handler handler;
+	ListView listview;
+	ArrayList<HashMap<String,String>> array;
+	SimpleAdapter adapter;
+	public final static String NAME ="name";
+	Handler handler;
+	List<User>listfriend;
+	int i=0;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.tabprivate);
-		list = (ListView) findViewById(R.id.list_friend1);
-		array = new ArrayList<HashMap<String,String>>();
+		
+		listview = (ListView) findViewById(R.id.list_friend1);
+		
 		handler = new Handler();
-		createList();
+		
+		
+		refreshData();
+		
+		
+		
+		addArrayToAdapter();
+		
 	}
-	public void createList(){
-		array.removeAll(array);
-		DBHandler db = new DBHandler(this);
-		List<User> user_list = db.getAllFriend();
-		for(User user:user_list){
-			String name = user.getUser_name();
-			loadData(name);
+	public void refreshData(){
+	
+		array = new ArrayList<HashMap<String,String>>();
+		
+		
+		for(User user:loadFromDatabase()){
+		
+			loadToArray(user.getUser_name());
 			
 		}
-		String[] tags ={TEXT};
+		
+		
+		
+	}
+	
+	// load dữ liệu từ database và lọc kết quả
+	public List<User> loadFromDatabase(){
+		
+		listfriend= new ArrayList<User>();
+		
+		
+		DBHandler db = new DBHandler(this);
+		
+		List<User> listuser = db.getAllFriend();
+		
+		for(User user: listuser){
+			if(user.getState()==1){
+		
+			
+		
+			listfriend.add(user);
+			
+			}
+			
+		}
+		db.close();
+		
+		return listfriend;
+		
+	}
+	// truyền dữ liệu vào arraylist, thống số truyền vào là name
+	public void loadToArray(String name){
+	
+		HashMap<String,String>temp = new HashMap<String, String>();
+		temp.put(NAME, name);
+		
+		array.add(temp);
+		
+		
+	}
+	public void addArrayToAdapter(){
+		
+		String[] tags ={NAME};
 		int [] ids = {R.id.tvNameFr};
+		
+
 		adapter = new SimpleAdapter(this,array,R.layout.chat_friend_item,tags,ids){
 			@Override
-			public View getView(int position, View convertView, android.view.ViewGroup parent){
-//				Toast.makeText(getApplicationContext(), "Position la "+position, Toast.LENGTH_SHORT).show();
+			public View getView(int position, View convertView, ViewGroup parent) {
+				// TODO Auto-generated method stub
 				final int a= position;
-				
-				
-				
 				View v= super.getView(position, convertView, parent);
-				Button btagree = (Button) v.findViewById(R.id.btRemoveFriend);
-				Button btrefuse = (Button) v.findViewById(R.id.btChatFriend);
-				btagree.setOnClickListener(new OnClickListener() {
-					
-					@Override
-					public void onClick(View v) {
-						User user = getFriend(a);
-						deleteFriend(user);
-						createList();
-						
-					}
-				});
-			
-				btrefuse.setOnClickListener(new OnClickListener() {
+				Button RemoveFriend = (Button) v.findViewById(R.id.btRemoveFriend);
+				Button Chat = (Button) v.findViewById(R.id.btChatFriend);
+				RemoveFriend.setOnClickListener(new OnClickListener() {
 					
 					@Override
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
-						User user = getFriend(a);
-						String name = user.getUser_name();
-						startActivity(new Intent(TabPrivate.this,
-								Chat1.class).putExtra(
-								Const.EXTRA_DATA, name));						
-						
+						DBHandler db = new DBHandler(getApplicationContext());
+						User user = listfriend.get(a);
+						int b = db.updateFalseUser_Friend(user);
+						db.close();
+						abc();
 					}
 				});
-				
+				Chat.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						startActivity(new Intent(TabPrivate.this,
+								Chat1.class).putExtra(
+								Const.EXTRA_DATA, listfriend.get(a)
+										.getUser_name()));
+					}
+				});
 				return v;
+				
 			}
+			
 		};
 		
-		list.setAdapter(adapter);
+		listview.setAdapter(adapter);
+		
 		adapter.notifyDataSetChanged();
-		handler.postDelayed(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				createList();
-			}
-		}, 1000);
+		
 	}
-	private void loadData(String name) {
+	public void abc(){
+		refreshData();
+		addArrayToAdapter();
+		
+	}
+	@Override
+	protected void onResume() {
 		// TODO Auto-generated method stub
-		
-		HashMap temp = new HashMap();
-		temp.put(TEXT, name);
-		array.add(temp);
-		
-	}
-	public void deleteFriend(User ur){
-		DBHandler db = new DBHandler(this);
-		db.deleteFriend(ur);
-	
+		super.onResume();
+		refreshData();
+		addArrayToAdapter();
+				
+//				adapter.notifyDataSetChanged();
 		
 	}
-public User getFriend(int pos){
-		
-		DBHandler db = new DBHandler(this);
-		User ur = db.getFriendbyPos(pos);
-		return ur;
-	
-	}
-//	@Override
-//	public boolean onCreateOptionsMenu(Menu menu) {
-//		// Inflate the menu; this adds items to the action bar if it is present.
-//		getMenuInflater().inflate(R.menu.activity__private, menu);
-//		return true;
-//	}
-
-//	@Override
-//	public boolean onOptionsItemSelected(MenuItem item) {
-//		// Handle action bar item clicks here. The action bar will
-//		// automatically handle clicks on the Home/Up button, so long
-//		// as you specify a parent activity in AndroidManifest.xml.
-//		int id = item.getItemId();
-//		if (id == R.id.action_settings) {
-//			return true;
-//		}
-//		return super.onOptionsItemSelected(item);
-//	}
 }

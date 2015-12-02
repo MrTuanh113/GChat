@@ -19,6 +19,8 @@ private static final String TABLE1="tbl_friend";
 private static final String KEY_ID="id";
 private static final String KEY_USER_ID="user_id";
 private static final String KEY_USER_NAME="user_name";
+private static final String STATE="state";
+private static final String CREATE_AT="createAt";
 
 	public DBHandler(Context context) {
 		super(context,DATABASE_NAME,null,DATABASE_VERSION);
@@ -33,11 +35,7 @@ private static final String KEY_USER_NAME="user_name";
 				+ KEY_USER_NAME + " TEXT" + ")";
 		String CREATE_FRIEND_MANAGER_TABLE = "CREATE TABLE " + TABLE1 + "("
 				+ KEY_ID + " INTEGER PRIMARY KEY," + KEY_USER_ID + " TEXT,"
-				+ KEY_USER_NAME + " TEXT" + ")";
-		
-//		String CREATE_REQUIRED_MANAGER_TABLE ="CREATE TABLE "+TABLE+"("
-//		+KEY_ID+" INTEGER PRIMARY KEY, "+KEY_USER_ID+ " TEXT,"
-//		+KEY_USER_NAME +" TEXT"+")";
+				+ KEY_USER_NAME + " TEXT," +STATE+" NUMERIC,"+CREATE_AT+" TEXT"+ ")";
 		db.execSQL(CREATE_REQUIRED_MANAGER_TABLE);
 		db.execSQL(CREATE_FRIEND_MANAGER_TABLE);
 		
@@ -57,17 +55,11 @@ private static final String KEY_USER_NAME="user_name";
 		values.put(KEY_USER_ID, user.getUser_id()); // Contact Name
 		values.put(KEY_USER_NAME, user.getUser_name()); // Contact Phone
 
-		// Inserting Row
+		
 		db.insert(TABLE, null, values);
 		db.close(); // Closing database connection
-		Log.d("kakakakakak:  ", user.getUser_name());
-//		SQLiteDatabase db = this.getWritableDatabase();
-//		ContentValues values = new ContentValues();
-//		values.put(KEY_USER_ID, user.getUser_id());
-//		values.put(KEY_USER_NAME, user.getUser_name());
-//		db.insert(TABLE, null, values);
-//		db.close();
-//		 Log.d("kakakakakak:  ", user.getUser_name());
+		
+	
 		
 	}
 	public void addFriend(User user){
@@ -76,11 +68,13 @@ private static final String KEY_USER_NAME="user_name";
 		ContentValues values = new ContentValues();
 		values.put(KEY_USER_ID, user.getUser_id()); // Contact Name
 		values.put(KEY_USER_NAME, user.getUser_name()); // Contact Phone
-
-		// Inserting Row
+		values.put(STATE, user.getState());
+		values.put(CREATE_AT, user.getCreateAt());
+		Log.d("Name ", user.getUser_name());
 		db.insert(TABLE1, null, values);
-		db.close(); // Closing database connection
-		Log.d("kakakakakak:  ", user.getUser_name());
+//		Log.d("có save được", ""+user.getUser_name());
+		db.close();
+		
 
 		
 	}
@@ -175,7 +169,8 @@ private static final String KEY_USER_NAME="user_name";
 				user.setId(Integer.parseInt(cursor.getString(0)));
 				user.setUser_id(cursor.getString(1));
 				user.setUser_name(cursor.getString(2));
-				
+				user.setState(cursor.getInt(3));
+				user.setCreateAt(cursor.getString(4));
 				user_list.add(user);
 			}while(cursor.moveToNext());
 			
@@ -218,11 +213,25 @@ private static final String KEY_USER_NAME="user_name";
 			
 		}
 		// Sửa thông tin bạn bè
-		public int updateUser_Friend(User user){
+		public int updateTrueUser_Friend(User user){
 			SQLiteDatabase db = this.getWritableDatabase();
 			ContentValues values = new ContentValues();
 			values.put(KEY_USER_ID, user.getUser_id());
 			values.put(KEY_USER_NAME, user.getUser_name());
+			values.put(STATE, 1);
+			values.put(CREATE_AT,user.getCreateAt());
+			return db.update(TABLE1, values, KEY_ID+"=?", new String[]{String.valueOf(user.getId())});
+			
+			
+		}
+		public int updateFalseUser_Friend(User user){
+			SQLiteDatabase db = this.getWritableDatabase();
+			ContentValues values = new ContentValues();
+			values.put(KEY_USER_ID, user.getUser_id());
+			values.put(KEY_USER_NAME, user.getUser_name());
+			Log.d("có vào đây không", "========"+user.getUser_name());
+			values.put(STATE, 0);
+			values.put(CREATE_AT,user.getCreateAt());
 			return db.update(TABLE1, values, KEY_ID+"=?", new String[]{String.valueOf(user.getId())});
 			
 			
