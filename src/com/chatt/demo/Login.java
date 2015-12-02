@@ -40,8 +40,7 @@ public class Login extends CustomActivity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
-		createData();
-		createTable();
+		
 
 		setTouchNClick(R.id.btnLogin);
 		setTouchNClick(R.id.btnReg);
@@ -105,16 +104,7 @@ public class Login extends CustomActivity
 	
 
 
-	public void createData(){
-		data = openOrCreateDatabase("database", MODE_PRIVATE, null);
-	}
-	public void createTable(){
-		String sql = "CREATE TABLE IF NOT EXISTS PASSWORD (";
-			
-			sql+="PASS TEXT)";
-			data.execSQL(sql);
-	}
-
+	
 	
 	@Override
 	public void onClick(View v)
@@ -145,8 +135,8 @@ public class Login extends CustomActivity
 					dia.dismiss();
 					if (pu != null)
 					{
-						Intent intent = new Intent(Login.this,Noti.class);
-						startService(intent);
+//						Intent intent = new Intent(Login.this,Noti.class);
+//						startService(intent);
 						
 						
 						
