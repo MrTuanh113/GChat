@@ -36,12 +36,12 @@ public class Noti extends Service{
 		// TODO Auto-generated method stub
 		super.onStart(intent, startId);
 		
-		try{
-		noticle();}
-		catch(Exception e){
-			Toast.makeText(this, "Lỗi "+e, Toast.LENGTH_LONG).show();
-			
-		}
+//		try{
+////		noticle();}
+//		catch(Exception e){
+//			Toast.makeText(this, "Lá»—i "+e, Toast.LENGTH_LONG).show();
+//			
+//		}
 		
 	}
 	@Override
@@ -50,41 +50,41 @@ public class Noti extends Service{
 		super.onDestroy();
 	}
 	
-	public void noticle(){
-		DBHandler db = new DBHandler(this);
-		
-
-		int count = db.getCount();
-		
-		if(TabRequired.index==count){
-			
-		}else if(TabRequired.index > count){
-			TabRequired.index = count;
-			
-		}else{
-			
-			notifitycation();
-			
-			TabRequired.index=count;
-		}
-		db.close();
-		handler.post(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				
-				noticle();
-			}
-		});
-		
-		
-	}
+//	public void noticle(){
+//		DBHandler db = new DBHandler(this);
+//		
+//
+//		int count = db.getCount();
+//		
+//		if(TabRequired.index==count){
+//			
+//		}else if(TabRequired.index > count){
+//			TabRequired.index = count;
+//			
+//		}else{
+//			
+//			notifitycation();
+//			
+//			TabRequired.index=count;
+//		}
+//		db.close();
+//		handler.post(new Runnable() {
+//			
+//			@Override
+//			public void run() {
+//				// TODO Auto-generated method stub
+//				
+//				noticle();
+//			}
+//		});
+//		
+//		
+//	}
 	public void notifitycation(){
 		NotificationCompat.Builder b = new NotificationCompat.Builder(this);
-		b.setContentTitle("GChat - Lời mời kết bạn");
-		b.setContentText("Bạn có lời mời kết bạn");
-		b.setTicker("Lời mời kết bạn mới");
+		b.setContentTitle("GChat - Lá»�i má»�i káº¿t báº¡n");
+		b.setContentText("Báº¡n cÃ³ lá»�i má»�i káº¿t báº¡n");
+		b.setTicker("Lá»�i má»�i káº¿t báº¡n má»›i");
 		b.setSmallIcon(R.drawable.icon);
 		b.setNumber(++numMessages);
 		Intent resultIntent = new Intent(this,TabMain.class);
