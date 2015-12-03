@@ -117,6 +117,25 @@ private static final String CREATE_AT="createAt";
 	
 	
 	}
+	//Truy vấn 1 bạn bè theo UserId
+		public User getUserFriendbyUserId(String id){
+			SQLiteDatabase db = this.getWritableDatabase();
+			Cursor cursor = db.query(TABLE1, new String[] {KEY_ID,KEY_USER_ID,KEY_USER_NAME,STATE,CREATE_AT}, KEY_USER_ID+"=?",new String[]{id} , null, null, null);
+			if(cursor != null)
+				cursor.moveToFirst();
+			
+			int m_id = Integer.parseInt(cursor.getString(0));
+			String user_id = cursor.getString(1);
+			String user_name = cursor.getString(2);
+			int state = Integer.parseInt(cursor.getString(3));
+			String createAt = cursor.getString(4);
+			User user = new User(user_id,user_name,state,createAt);
+			cursor.close();
+			db.close();
+		return user;
+		
+		
+		}
 	public User getFriendbyPos(int pos){
 		SQLiteDatabase db = this.getWritableDatabase();
 		Cursor c = db.query(TABLE1, null, null, null, null, null, null);
@@ -233,6 +252,18 @@ private static final String CREATE_AT="createAt";
 			values.put(STATE, 0);
 			values.put(CREATE_AT,user.getCreateAt());
 			return db.update(TABLE1, values, KEY_ID+"=?", new String[]{String.valueOf(user.getId())});
+			
+			
+		}
+		public int updateRequiredState(User user){
+			SQLiteDatabase db = this.getWritableDatabase();
+			ContentValues values = new ContentValues();
+			values.put(KEY_USER_ID, user.getUser_id());
+			values.put(KEY_USER_NAME, user.getUser_name());
+			Log.d("có vào đây không ===== required", "========"+user.getUser_name());
+			values.put(STATE, 2);
+			values.put(CREATE_AT,user.getCreateAt());
+			return db.update(TABLE1, values, KEY_USER_ID+"=?", new String[]{user.getUser_id()});
 			
 			
 		}
