@@ -17,6 +17,8 @@ import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -102,12 +104,15 @@ public class TabRequired extends Activity{
 						final Intent intent = new Intent(TabRequired.this,TabRequired.class);
 						
 						View v= super.getView(position, convertView, parent);
-						Button btagree = (Button) v.findViewById(R.id.btAgree);
-						Button btrefuse = (Button) v.findViewById(R.id.btRefuse);
+						final Button btagree = (Button) v.findViewById(R.id.btAgree);
+						final Button btrefuse = (Button) v.findViewById(R.id.btRefuse);
 						btagree.setOnClickListener(new OnClickListener() {
 							
 							@Override
 							public void onClick(View v) {
+
+								Animation shake = AnimationUtils.loadAnimation(TabRequired.this, R.anim.shake);
+								btagree.startAnimation(shake);
 								// TODO Auto-generated method stub
 //								Toast.makeText(getApplicationContext(), "Vào button đồng ý", Toast.LENGTH_SHORT).show();
 								User ur = getUser(a);
@@ -125,7 +130,9 @@ public class TabRequired extends Activity{
 							@Override
 							public void onClick(View v) {
 								// TODO Auto-generated method stub
-//								Toast.makeText(getApplicationContext(), "Vào button từ chối", Toast.LENGTH_SHORT).show();
+//								
+								Animation shake = AnimationUtils.loadAnimation(TabRequired.this, R.anim.shake);
+								btrefuse.startAnimation(shake);
 								User ur = getUser(a);
 								deleteRequired(ur);
 								createList();

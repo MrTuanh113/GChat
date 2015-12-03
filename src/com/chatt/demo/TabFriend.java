@@ -23,6 +23,8 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -197,15 +199,18 @@ public class TabFriend extends Activity{
 				final int a= position;
 				View v= super.getView(position, convertView, parent);
 				Button AddFriend = (Button) v.findViewById(R.id.btAddFriend);
-				Button Chat = (Button) v.findViewById(R.id.btChat);
+				final Button Chat = (Button) v.findViewById(R.id.btChat);
 					AddFriend.setOnClickListener(new OnClickListener() {
 									
 									@Override
 									public void onClick(View v){
 //										showDialos();
 									
-										
+										Toast.makeText(getApplicationContext(), "Thêm thành công!", Toast.LENGTH_SHORT).show();
 										DBHandler db = new DBHandler(getApplicationContext());
+
+										Animation shake = AnimationUtils.loadAnimation(TabFriend.this, R.anim.shake);
+										Chat.startAnimation(shake);
 //										Log.d("bắt đầu ========","========" );
 										User user = mlistuser.get(a);
 //										Log.d("name",""+user.getUser_name() );
@@ -225,7 +230,10 @@ public class TabFriend extends Activity{
 						
 						@Override
 						public void onClick(View v) {
+							
 							// TODO Auto-generated method stub
+							Animation shake = AnimationUtils.loadAnimation(TabFriend.this, R.anim.shake);
+							Chat.startAnimation(shake);
 							startActivity(new Intent(TabFriend.this,
 									Chat1.class).putExtra(
 									Const.EXTRA_DATA, mlistuser.get(a)

@@ -14,6 +14,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -64,7 +66,7 @@ public class TabPrivate extends Activity {
 		
 	}
 	
-	// load dữ liệu từ database và lọc kết quả
+	// load dá»¯ liá»‡u tá»« database vÃ  lá»�c káº¿t quáº£
 	public List<User> loadFromDatabase(){
 		
 		listfriend= new ArrayList<User>();
@@ -89,7 +91,7 @@ public class TabPrivate extends Activity {
 		return listfriend;
 		
 	}
-	// truyền dữ liệu vào arraylist, thống số truyền vào là name
+	// truyá»�n dá»¯ liá»‡u vÃ o arraylist, thá»‘ng sá»‘ truyá»�n vÃ o lÃ  name
 	public void loadToArray(String name){
 	
 		HashMap<String,String>temp = new HashMap<String, String>();
@@ -112,7 +114,7 @@ public class TabPrivate extends Activity {
 				final int a= position;
 				View v= super.getView(position, convertView, parent);
 				Button RemoveFriend = (Button) v.findViewById(R.id.btRemoveFriend);
-				Button Chat = (Button) v.findViewById(R.id.btChatFriend);
+				final Button Chat = (Button) v.findViewById(R.id.btChatFriend);
 				RemoveFriend.setOnClickListener(new OnClickListener() {
 					
 					@Override
@@ -130,6 +132,9 @@ public class TabPrivate extends Activity {
 					@Override
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
+
+						Animation shake = AnimationUtils.loadAnimation(TabPrivate.this, R.anim.shake);
+						Chat.startAnimation(shake);
 						startActivity(new Intent(TabPrivate.this,
 								Chat1.class).putExtra(
 								Const.EXTRA_DATA, listfriend.get(a)
