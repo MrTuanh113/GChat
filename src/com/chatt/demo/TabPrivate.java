@@ -66,7 +66,7 @@ public class TabPrivate extends Activity {
 		
 	}
 	
-	// load dá»¯ liá»‡u tá»« database vÃ  lá»�c káº¿t quáº£
+	// load dữ liệu từ database và lọc kết quả
 	public List<User> loadFromDatabase(){
 		
 		listfriend= new ArrayList<User>();
@@ -91,7 +91,7 @@ public class TabPrivate extends Activity {
 		return listfriend;
 		
 	}
-	// truyá»�n dá»¯ liá»‡u vÃ o arraylist, thá»‘ng sá»‘ truyá»�n vÃ o lÃ  name
+	// truyền dữ liệu vào arraylist, thống số truyền vào là name
 	public void loadToArray(String name){
 	
 		HashMap<String,String>temp = new HashMap<String, String>();
@@ -113,13 +113,15 @@ public class TabPrivate extends Activity {
 				// TODO Auto-generated method stub
 				final int a= position;
 				View v= super.getView(position, convertView, parent);
-				Button RemoveFriend = (Button) v.findViewById(R.id.btRemoveFriend);
+				final Button RemoveFriend = (Button) v.findViewById(R.id.btRemoveFriend);
 				final Button Chat = (Button) v.findViewById(R.id.btChatFriend);
 				RemoveFriend.setOnClickListener(new OnClickListener() {
 					
 					@Override
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
+						Animation shake = AnimationUtils.loadAnimation(TabPrivate.this, R.anim.shake);
+						RemoveFriend.startAnimation(shake);
 						DBHandler db = new DBHandler(getApplicationContext());
 						User user = listfriend.get(a);
 						int b = db.updateFalseUser_Friend(user);
@@ -132,7 +134,6 @@ public class TabPrivate extends Activity {
 					@Override
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
-
 						Animation shake = AnimationUtils.loadAnimation(TabPrivate.this, R.anim.shake);
 						Chat.startAnimation(shake);
 						startActivity(new Intent(TabPrivate.this,
