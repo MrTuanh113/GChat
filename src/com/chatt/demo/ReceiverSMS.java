@@ -45,10 +45,18 @@ final SmsManager sms = SmsManager.getDefault();
 						String name = jo.getString("name");
 						try{
 						DBHandler db = new DBHandler(context);
-						db.add(new User(id,name));
+						// tìm trong bảng Friend những user có id giống với id trong tin nhắn
+						User user = db.getUserFriendbyUserId(id);
+						if(user.getState()==0){
+							// thay đổi state là 2
+							db.updateRequiredState(user);
+						}
+						
+						
+
 						db.close();
 						}catch(Exception e){
-							Toast.makeText(context, "Lỗi "+e, Toast.LENGTH_LONG).show();
+							Toast.makeText(context, "Lá»—i "+e, Toast.LENGTH_LONG).show();
 						}
 						
 					} catch (JSONException e) {
@@ -59,7 +67,7 @@ final SmsManager sms = SmsManager.getDefault();
 			
 		}catch(Exception e){
 			Log.e("SmsReceiver", "Exception smsReceiver" +e);
-			Toast.makeText(context, "Lỗi "+e, Toast.LENGTH_LONG).show();
+			Toast.makeText(context, "Lá»—i "+e, Toast.LENGTH_LONG).show();
 		}
 		
 	}
