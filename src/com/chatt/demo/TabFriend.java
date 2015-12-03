@@ -14,6 +14,7 @@ import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.telephony.gsm.SmsManager;
@@ -34,6 +35,7 @@ import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.chatt.demo.utils.Const;
+import com.chatt.demo.utils.Utils;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -86,7 +88,7 @@ public class TabFriend extends Activity{
 		
 		for(User user : listuser){
 			i++;
-			if(user.getState()==0){
+			if(user.getState()!=1){
 			HashMap<String,String> temp = new HashMap<String,String>();
 			
 			mlistuser.add(user);
@@ -198,39 +200,25 @@ public class TabFriend extends Activity{
 				// TODO Auto-generated method stub
 				final int a= position;
 				View v= super.getView(position, convertView, parent);
-				Button AddFriend = (Button) v.findViewById(R.id.btAddFriend);
+				final Button AddFriend = (Button) v.findViewById(R.id.btAddFriend);
 				final Button Chat = (Button) v.findViewById(R.id.btChat);
 					AddFriend.setOnClickListener(new OnClickListener() {
 									
 									@Override
 									public void onClick(View v){
-//										showDialos();
-									
-										Toast.makeText(getApplicationContext(), "Thêm thành công!", Toast.LENGTH_SHORT).show();
-										DBHandler db = new DBHandler(getApplicationContext());
-
 										Animation shake = AnimationUtils.loadAnimation(TabFriend.this, R.anim.shake);
-										Chat.startAnimation(shake);
-//										Log.d("bắt đầu ========","========" );
-										User user = mlistuser.get(a);
-//										Log.d("name",""+user.getUser_name() );
-										
-										
-										int b = db.updateTrueUser_Friend(user);
-//										Log.d("b là",""+b );
-//										Log.d("state",user.getUser_name()+""+user.getState() );
-//										Log.d("a là",""+a );
+										AddFriend.startAnimation(shake);
+										DBHandler db = new DBHandler(getApplicationContext());
+										User m_user = mlistuser.get(a);
+										int b = db.updateTrueUser_Friend(m_user);
 										db.close();
-										
+										new MyAsynTask().execute(m_user);
 										loadNew();
-										
-									}
-								});
+									}});
 					Chat.setOnClickListener(new OnClickListener() {
 						
 						@Override
 						public void onClick(View v) {
-							
 							// TODO Auto-generated method stub
 							Animation shake = AnimationUtils.loadAnimation(TabFriend.this, R.anim.shake);
 							Chat.startAnimation(shake);
@@ -238,6 +226,7 @@ public class TabFriend extends Activity{
 									Chat1.class).putExtra(
 									Const.EXTRA_DATA, mlistuser.get(a)
 											.getUser_name()));
+							
 						}
 					});
 				
@@ -259,6 +248,16 @@ public class TabFriend extends Activity{
 //				Log.d("Vào lần thứ ", ""+k);
 //			}
 //		}, 5000);
+	}
+	
+	
+	private void sendSMS(String phonenumber, String text) {
+		// TODO Auto-generated method stub
+		Log.d("có vào gửi SMS","số điện thoại"+ phonenumber+" tin nhắn là "+ text);
+		PendingIntent pi = PendingIntent.getActivity(this, 0, new Intent(this, TabFriend.class), 0);
+		SmsManager sms = SmsManager.getDefault();
+		
+		sms.sendTextMessage(phonenumber, null, text, null, null);
 	}
 	public void loadNew(){
 		loadFriend();
@@ -301,8 +300,52 @@ public class TabFriend extends Activity{
 		super.onActivityResult(requestCode, resultCode, data);
 		if (requestCode == 2 && resultCode == RESULT_OK)
 			Toast.makeText(getApplicationContext(), "OK- intent2", Toast.LENGTH_SHORT).show();
-			finish();
+			finish();}
+	public class MyAsynTask extends AsyncTask<User, Void, Void>{
 
-	}
+		@Override
+		protected Void doInBackground(User... m_user) {
+			// TODO Auto-generated method stub
+			String id = user.getObjectId();
+			String name = user.getUsername();
+			
+			String message ="{\"id\":"+id+",\"name\":"+name+"}";
+			
+			
+		
+			
+			
+			//=========
+			try {
+		
+				String id1= m_user[0].getUser_id();
+				List<ParseUser> list =ParseUser.getQuery().whereEqualTo("objectId", id1).find();
+				ParseUser user2=list.get(0);
+				String number = user2.getString("phonenumber");
+				Log.d("phonenumber", number);
+				if(number.equals("")){
+//					Utils.showDialog(
+//							TabFriend.this,
+//							"Người dùng không có số điện thoại");
+					
+				}
+				else{
+					
+					Log.d("vao day", "==============");
+					sendSMS(number,message);
+				}
+				
+				
+//				Toast.makeText(getBaseContext(), "phonenumber ", Toast.LENGTH_SHORT).show();
+			
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			return null;
+		}
 
+	
+}
 }
