@@ -21,7 +21,9 @@ import android.widget.Toast;
 
 public class ReceiverSMS extends BroadcastReceiver{
 final SmsManager sms = SmsManager.getDefault();
-
+private NotificationManager mNoti;
+private int notiID=100;
+private int numMessages =0;
 
 
 	@Override
@@ -45,18 +47,19 @@ final SmsManager sms = SmsManager.getDefault();
 						String name = jo.getString("name");
 						try{
 						DBHandler db = new DBHandler(context);
-						// tìm trong bảng Friend những user có id giống với id trong tin nhắn
+						// tÃ¬m trong báº£ng Friend nhá»¯ng user cÃ³ id giá»‘ng vá»›i id trong tin nháº¯n
 						User user = db.getUserFriendbyUserId(id);
 						if(user.getState()==0){
-							// thay đổi state là 2
+							// thay Ä‘á»•i state lÃ  2
 							db.updateRequiredState(user);
+							notifitycation(context,name);
 						}
 						
 						
 
 						db.close();
 						}catch(Exception e){
-							Toast.makeText(context, "Lá»—i "+e, Toast.LENGTH_LONG).show();
+							Toast.makeText(context, "LÃ¡Â»â€”i "+e, Toast.LENGTH_LONG).show();
 						}
 						
 					} catch (JSONException e) {
@@ -67,12 +70,40 @@ final SmsManager sms = SmsManager.getDefault();
 			
 		}catch(Exception e){
 			Log.e("SmsReceiver", "Exception smsReceiver" +e);
-			Toast.makeText(context, "Lá»—i "+e, Toast.LENGTH_LONG).show();
+			Toast.makeText(context, "LÃ¡Â»â€”i "+e, Toast.LENGTH_LONG).show();
 		}
+		
+		
+		
+		
+		
+		
+		
 		
 	}
 	
+	public void notifitycation(Context context, String name){
 		
+		NotificationCompat.Builder b = new NotificationCompat.Builder(context);
+		b.setContentTitle("GChat- tin nhắn kết bạn mới");
+		b.setContentText("Bạn có tin nhắn kết bạn mới từ "+name);
+		b.setTicker("Bạn có tin nhắn kết bạn mới");
+		b.setSmallIcon(R.drawable.icon);
+		b.setNumber(++numMessages);
+		
+		Intent resultIntent = new Intent(context,TabMain.class);
+		resultIntent.putExtra("abc", true);
+		TaskStackBuilder sb = TaskStackBuilder.create(context);
+		sb.addParentStack(TabMain.class);
+		sb.addNextIntent(resultIntent);
+		PendingIntent rpi = sb.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+		b.setContentIntent(rpi);
+		b.setAutoCancel(true);
+		mNoti = (NotificationManager)context. getSystemService(Context.NOTIFICATION_SERVICE);
+		mNoti.notify(notiID,b.build());
+		
+		
+	}
 		
 	
 

@@ -21,7 +21,7 @@ public class TabMain extends TabActivity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.tabmain);
 		th = (TabHost)findViewById(android.R.id.tabhost);
-		
+	
 		//TabSpec
 		
 		TabSpec tab1 = th.newTabSpec("Tab friend");
@@ -45,7 +45,11 @@ public class TabMain extends TabActivity{
 		tab3Layout = (LinearLayout)findViewById(R.id.LinearLayout3);
 		tab3.setIndicator("Required");
 		th.addTab(tab3);
-		
+		boolean a = getIntent().getBooleanExtra("abc", false);
+		if(a){
+			th.setCurrentTab(2);
+			
+		}
 		th.setOnTabChangedListener(new OnTabChangeListener() {
 			
 		    public void onTabChanged(String tabId) {
